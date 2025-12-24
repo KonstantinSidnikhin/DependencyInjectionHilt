@@ -2,6 +2,10 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt.android)
+
+
 }
 
 android {
@@ -40,7 +44,7 @@ android {
 }
 
 dependencies {
-
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.4")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -50,7 +54,12 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.5")
+
+
+
+    ksp(libs.hilt.android.compiler)
+    implementation(libs.hilt.android)
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -60,3 +69,4 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
+
