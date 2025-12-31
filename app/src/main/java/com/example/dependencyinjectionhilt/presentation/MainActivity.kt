@@ -28,12 +28,12 @@ import com.example.dependencyinjectionhilt.presentation.theme.DependencyInjectio
 
 class MainActivity : ComponentActivity() {
   lateinit  var exampleViewModel: ExampleViewModel
-    //lateinit var repository : ExampleRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-       val component = (application as ExampleApp).component
+       val component = (application as ExampleApp).component// мы создали экземпляр нашего Компонента
+        // в классе ExampleApp которое унаследовалось от Application и поэтому наш компонент будет жить сколько живет прлиложение
         component.inject(this)
 
         enableEdgeToEdge()

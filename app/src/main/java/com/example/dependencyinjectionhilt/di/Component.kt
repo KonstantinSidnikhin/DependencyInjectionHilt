@@ -8,7 +8,7 @@ import com.example.dependencyinjectionhilt.domain.ExampleUseCase
 import com.example.dependencyinjectionhilt.presentation.ExampleViewModel
 import com.example.dependencyinjectionhilt.presentation.MainActivity
 
-class Component(context: Context) {
+class Component(context: Context) {// мы передаем параметр в конструктор потому что не можем создать экземпляр класса Контекст сразу, только  после запуска приложения можно
     val database = Database(context)
     val repository = ExampleRepositoryImpl(database)
     val exampleUseCase = ExampleUseCase(repository)
