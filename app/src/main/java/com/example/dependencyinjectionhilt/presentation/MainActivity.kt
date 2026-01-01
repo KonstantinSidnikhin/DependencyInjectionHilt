@@ -14,27 +14,25 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.dependencyinjectionhilt.ExampleApp
-import com.example.dependencyinjectionhilt.data.Database
-import com.example.dependencyinjectionhilt.data.ExampleRepositoryImpl
-import com.example.dependencyinjectionhilt.di.Component
-import com.example.dependencyinjectionhilt.domain.ExampleRepository
-import com.example.dependencyinjectionhilt.domain.ExampleUseCase
 import com.example.dependencyinjectionhilt.domain.Item
 import com.example.dependencyinjectionhilt.presentation.theme.DependencyInjectionHiltTheme
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class MainActivity : ComponentActivity() {
-  lateinit  var exampleViewModel: ExampleViewModel
+@AndroidEntryPoint//что бы внутри активити можено было вызвать Inject
+class MainActivity : ComponentActivity() {//тут будет получен экземпляр компонента из Aplication у
+    // него будет вызван метод Inject и всем свойствам класса с анотацией @Inject будут установлены значения
+    @Inject
+  lateinit  var exampleViewModelFactory: ExampleViewModel.Factory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-       val component = (application as ExampleApp).component// мы создали экземпляр нашего Компонента
+       //val component = (application as ExampleApp).component// мы создали экземпляр нашего Компонента
         // в классе ExampleApp которое унаследовалось от Application и поэтому наш компонент будет жить сколько живет прлиложение
-        component.inject(this)
+       // component.inject(this)
 
         enableEdgeToEdge()
         setContent {
@@ -43,7 +41,7 @@ class MainActivity : ComponentActivity() {
                     ExampleScreen(
                         modifier = Modifier.padding(innerPadding),
                         exampleViewModel = viewModel {
-                            exampleViewModel
+                            exampleViewModelFactory.create(Item(0))
                         }
 
                         )
@@ -67,7 +65,7 @@ fun ExampleScreen(
                 .fillMaxWidth()
                 .padding(16.dp),
             onClick = {
-                exampleViewModel.exampleMethod(Item(0))
+                exampleViewModel.exampleMethod()
             }
         ) {
             Text(
