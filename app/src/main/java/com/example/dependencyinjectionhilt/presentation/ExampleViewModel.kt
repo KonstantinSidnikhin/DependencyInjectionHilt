@@ -7,8 +7,9 @@ import com.example.dependencyinjectionhilt.domain.Item
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-
+@HiltViewModel(assistedFactory = ExampleViewModel.Factory::class)
 class ExampleViewModel @AssistedInject constructor(//AssistedInject потому что мы не можем заинжектить все, item не можем
     private val exampleUseCase: ExampleUseCase,
     @Assisted("item") private val item: Item//указываем Assisted потому что его мы не можем заинжектить сразу

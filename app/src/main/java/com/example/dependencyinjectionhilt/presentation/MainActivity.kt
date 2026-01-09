@@ -24,8 +24,7 @@ import javax.inject.Inject
 @AndroidEntryPoint//что бы внутри активити можено было вызвать Inject
 class MainActivity : ComponentActivity() {//тут будет получен экземпляр компонента из Aplication у
     // него будет вызван метод Inject и всем свойствам класса с анотацией @Inject будут установлены значения
-    @Inject
-  lateinit  var exampleViewModelFactory: ExampleViewModel.Factory
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +39,6 @@ class MainActivity : ComponentActivity() {//тут будет получен э�
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     ExampleScreen(
                         modifier = Modifier.padding(innerPadding),
-                        exampleViewModel = viewModel {
-                            exampleViewModelFactory.create(Item(0))
-                        }
 
                         )
                 }
@@ -51,26 +47,3 @@ class MainActivity : ComponentActivity() {//тут будет получен э�
     }
 }
 
-@Composable
-fun ExampleScreen(
-    modifier: Modifier = Modifier,
-    exampleViewModel: ExampleViewModel
-) {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Button(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            onClick = {
-                exampleViewModel.exampleMethod()
-            }
-        ) {
-            Text(
-                text = "Click me!!"
-            )
-        }
-    }
-}
